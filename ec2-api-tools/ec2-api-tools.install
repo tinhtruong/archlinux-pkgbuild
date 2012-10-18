@@ -1,0 +1,17 @@
+## arg 1:  the new package version
+post_install() {
+    echo "export AWS_CREDENTIAL_FILE=/opt/ec2-api-tools/credential-file" >> /etc/profile.d/ec2-api-tools.sh
+    echo "export EC2_HOME=/opt/ec2-api-tools" >> /etc/profile.d/ec2-api-tools.sh
+    echo "export PATH=\$PATH:\$EC2_HOME/bin" >> /etc/profile.d/ec2-api-tools.sh
+    echo "setenv AWS_CREDENTIAL_FILE /opt/ec2-api-tools/credential-file" >> /etc/profile.d/ec2-api-tools.csh
+    echo "setenv EC2_HOME /opt/ec2-api-tools" >> /etc/profile.d/ec2-api-tools.csh    
+    echo "setenv PATH ${PATH}:${AWS_AUTO_SCALING_HOME}/bin" >> /etc/profile.d/ec2-api-tools.csh
+    chmod 755 /etc/profile.d/ec2-api-tools.sh
+    chmod 755 /etc/profile.d/ec2-api-tools.csh
+    echo "Remember to edit the file /opt/ec2-api-tools/credential-file with your AWS Access Key and AWS Secret Key!"
+    echo "If you want to run the tools as your normal user please run: chown `whoami`:root /opt/ec2-api-tools/credential-file"
+}
+
+post_remove() {
+    rm -rf /etc/profile.d/ec2-api-tools.*
+}

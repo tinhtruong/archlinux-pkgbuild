@@ -1,0 +1,7 @@
+## arg 1:  the new package version
+post_install() {
+    echo "Add the following to your .bash_profile and then logout, login again:"
+    echo "export XMODIFIERS=@im=ibus"
+    echo "export GTK_IM_MODULE=ibus"
+    echo "export QT_IM_MODULE=ibus"
+}

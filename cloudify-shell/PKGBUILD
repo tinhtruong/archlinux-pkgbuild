@@ -1,0 +1,30 @@
+# Contributor: Truong Xuan Tinh (xuantinh at gmail dot com)
+
+pkgname=cloudify-shell
+pkgver=2.1.1
+pkgrel=1
+pkgdesc="The Open Source PaaS Stack"
+arch=('any')
+url="http://www.cloudifysource.org/"
+source=(http://repository.cloudifysource.org/org/cloudifysource/2.1.1/gigaspaces-cloudify-2.1.1-ga-b1400.zip)
+depends=(java-runtime inetutils)
+license=('Apache License 2.0')
+md5sums=('048d0c0bced13c7528e723a5894971b5')
+options=('!strip')
+_installDir=/opt/$pkgname
+build() {
+    mkdir -p $pkgdir$_installDir
+    cd $srcdir
+    cp -a $srcdir/gigaspaces-cloudify-2.1.1-ga/* $pkgdir$_installDir
+    mkdir -p $pkgdir/etc/profile.d
+    cp $startdir/cloudify-shell.sh $pkgdir/etc/profile.d/
+    cp $startdir/cloudify-shell.csh $pkgdir/etc/profile.d/
+    chmod +x $pkgdir/etc/profile.d/cloudify-shell.*
+
+    # Fixed the permission denied for create log file
+    $pkgdir$_installDir/config/gs_logging.properties
+    cp $startdir/gs_logging.properties $pkgdir$_installDir/config/
+
+    rm -rf $pkgdir$_installDir/bin/*.bat
+    chmod +x $pkgdir$_installDir/bin/*.sh    
+}
