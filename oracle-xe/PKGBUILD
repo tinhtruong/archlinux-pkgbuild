@@ -15,25 +15,27 @@ makedepends=('rpmextract')
 install='oracle.install'
 source=('http://download/file/from/oracle/page/oracle-xe-11.2.0-1.0.x86_64.rpm.zip'
         'oracle_env.csh'
-        'oracle_env.sh'        
-        'oracle-xe.conf'        
+        'oracle_env.sh'
+        'oracle-xe.conf'
+        'oracle-xe'
        )
 md5sums=('dd7881a55569d890241f11cd0eeb7d48'
          'b587cdd0bfe145b17b4f73bcfbd90ce4'
-         'cc17060047ec76303338ec125a6b48da'        
-         'db061fd55d90d113bb8790cc91d581fd'         
+         'cc17060047ec76303338ec125a6b48da'
+         'db061fd55d90d113bb8790cc91d581fd'
+         '6fcee9728f74bcbeefbbadb6b505f891'
         )
 
 build() {
     cd $srcdir
     rpmextract.sh Disk1/oracle-xe-11.2.0-1.0.x86_64.rpm
-    
+
     mkdir -p $pkgdir/etc/rc.d
-    cp $srcdir/etc/init.d/oracle-xe $pkgdir/etc/rc.d/
+    cp $startdir/oracle-xe $pkgdir/etc/rc.d/
     chmod +x $pkgdir/etc/rc.d/oracle-xe
 
     mv $srcdir/u01 $pkgdir/
-    
+
     find $pkgdir -exec chmod 755 {} \;
 
     # Export environment variables
