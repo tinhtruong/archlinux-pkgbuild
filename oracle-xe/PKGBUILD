@@ -1,3 +1,4 @@
+# Maintainer:  Tinh Truong <xuantinh at gmail dot com>
 # Contributor: Cedric Sougne <cedric@sougne.name>
 # Contributor: untseac
 # Contributor: siasia
@@ -50,7 +51,7 @@ package() {
 
     # Fix the listener.ora
     cp -f $srcdir/listener.ora $pkgdir/usr/lib/oracle/product/11.2.0/xe/network/admin/
-    
+
     find $pkgdir -exec chmod 755 {} \;
 
     # Export environment variables
@@ -76,7 +77,7 @@ package() {
     sed -i "${corr2}" $pkgdir/usr/lib/oracle/product/11.2.0/xe/config/scripts/*
     sed -i "${corr1}" $pkgdir/usr/lib/oracle/product/11.2.0/xe/odbc/lib/env_odbc.mk
     sed -i "${corr1}" $pkgdir/usr/share/applications/*
-    sed -i "${corr1}" $pkgdir/usr/lib/oracle/product/11.2.0/xe/bin/oracle_env.* 
+    sed -i "${corr1}" $pkgdir/usr/lib/oracle/product/11.2.0/xe/bin/oracle_env.*
 
     # For systemd
     mkdir -p $pkgdir/etc/systemd/system
